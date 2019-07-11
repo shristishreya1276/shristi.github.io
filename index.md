@@ -4,7 +4,7 @@ author:
 title: Work Done
 ---
 
-Initial approach {#sec:org052385a}
+Initial approach {#sec:org13194b1}
 ================
 
 We were provided with ground truth points for the Prosopis Juliflora and
@@ -45,7 +45,7 @@ try to classify P. Juliflora instead of L. Camara while writing reusable
 code. The results that would come can then be easily applied to L.
 Camara while changing very little code.
 
-Spectral Analysis {#sec:org36e6ee5}
+Spectral Analysis {#sec:org49c2287}
 -----------------
 
 Hence we first started our pursuit to classify P. Juliflora. We started
@@ -60,7 +60,7 @@ algorithm to group its pixels into clusters of P. Juliflora. Let us
 consider the original image of a region given to us in the datapoint.
 
 ![Satellite Image of the
-field](./../ClusterProsopis/original.png){width=".9\\linewidth"}
+field](./ClusterProsopis/original.png){width=".9\\linewidth"}
 
 The methodology can be stated as follows:
 
@@ -70,7 +70,7 @@ The methodology can be stated as follows:
     `KML`, `shapefiles`.
 
     ![The red points are the ground truth points collected from the
-    fields.](./../ClusterProsopis/redMarkLocations.png){width=".9\\linewidth"}
+    fields.](./ClusterProsopis/redMarkLocations.png){width=".9\\linewidth"}
 
 -   Mark a circular region around it of radius $500m$
 
@@ -78,7 +78,7 @@ The methodology can be stated as follows:
     to create circular regions around them using
     `this.FeatureCollection.map()`
 
-    ![image](./../ClusterProsopis/markedArea.png){width=".9\\linewidth"}
+    ![image](./ClusterProsopis/markedArea.png){width=".9\\linewidth"}
 
 -   Let us call this circular region as `geometry_point`
 
@@ -95,9 +95,9 @@ The methodology can be stated as follows:
     ![The region marked with pink, is the area covered P. Juliflora. We
     can observe that P. Juliflora can succesfully distinguished on the
     basis of it's spectral
-    signatures.](./../ClusterProsopis/kmeanclassified.png){width=".9\\linewidth"}
+    signatures.](./ClusterProsopis/kmeanclassified.png){width=".9\\linewidth"}
 
-### How Clustering was achieved {#sec:org181dcc3}
+### How Clustering was achieved {#sec:org3a42a7e}
 
 1.  I first took the *Sentinel-2* image dataset as they provide high
     resolution dataset upto $10m$.
@@ -122,7 +122,7 @@ The methodology can be stated as follows:
 For L. Camara, we didn't find such patterns. They were largely hidden
 under the canopies.
 
-Textural Analysis {#sec:orge929821}
+Textural Analysis {#sec:orgc02e38f}
 -----------------
 
 I analysed the textures of the sentinel-2 images and I have analysed
@@ -130,7 +130,7 @@ various parameters described below as it was proposed during my
 proposal. The kernel choosen was a square of $2 * 2$ px wide, which is
 approximately $100m^2$ area.
 
-### Entropy {#sec:org9cd4108}
+### Entropy {#sec:org0266187}
 
 Most of the images were completely black and there was nothing
 distinguishable in the image. Including this just increased the
@@ -139,18 +139,18 @@ transformed image after we calculated the entropy for each pixel of
 original dataset.
 
 ![Here's our original picture of P.
-Juliflora](./../TextureProsopis/original.png){width=".9\\linewidth"}
+Juliflora](./TextureProsopis/original.png){width=".9\\linewidth"}
 
 ![Here's the same image shown as grayscaled after doing the entropy
 transformation. As we see, nothing is clearly
-distinguisable.](./../TextureProsopis/glcmcontrast.png){width=".9\\linewidth"}
+distinguisable.](./TextureProsopis/glcmcontrast.png){width=".9\\linewidth"}
 
-### Variance {#sec:org4a2398e}
+### Variance {#sec:org7e3eba2}
 
 Variance was the most disappointing to observe as all the images were
 black due to no difference being seen in the surrounding pixels.
 
-### Standard Deviation {#sec:org9bba7f7}
+### Standard Deviation {#sec:orgf8101b1}
 
 No use as sentinel's resolution is quite low and there was no change in
 the values. What we see here is that only EVI and NDVI bands have slight
@@ -158,19 +158,19 @@ distinguisable property but not enough to distinguish P. Juliflora from
 the rest of the vegetation and it's also already colored as black.
 
 ![Standard Deviation under B2
-band](./../TextureProsopis/B2.png){width=".9\\linewidth"}
+band](./TextureProsopis/B2.png){width=".9\\linewidth"}
 
-![Under B3 band](./../TextureProsopis/B3.png){width=".9\\linewidth"}
+![Under B3 band](./TextureProsopis/B3.png){width=".9\\linewidth"}
 
-![Under B4 band](./../TextureProsopis/B4.png){width=".9\\linewidth"}
+![Under B4 band](./TextureProsopis/B4.png){width=".9\\linewidth"}
 
-![Under EVI band](./../TextureProsopis/EVI.png){width=".9\\linewidth"}
+![Under EVI band](./TextureProsopis/EVI.png){width=".9\\linewidth"}
 
-![Under NDVI band](./../TextureProsopis/NDVI.png){width=".9\\linewidth"}
+![Under NDVI band](./TextureProsopis/NDVI.png){width=".9\\linewidth"}
 
-![Under NIR band](./../TextureProsopis/NIR.png){width=".9\\linewidth"}
+![Under NIR band](./TextureProsopis/NIR.png){width=".9\\linewidth"}
 
-### Mean {#sec:orgcd6abdc}
+### Mean {#sec:org0438be8}
 
 EVI and NDVI were useful. Although, both of them look quite the same in
 terms of texture. The improvment that they provide in terms of
@@ -178,12 +178,12 @@ Neighbourhood is not significant. Some of the results that came are
 listed below.
 
 ![mean of EVI
-band](./../TextureProsopis/meanevi.png){width=".9\\linewidth"}
+band](./TextureProsopis/meanevi.png){width=".9\\linewidth"}
 
 ![mean of NDVI
-band](./../TextureProsopis/meanndvi.png){width=".9\\linewidth"}
+band](./TextureProsopis/meanndvi.png){width=".9\\linewidth"}
 
-### GLCM {#sec:orga95c167}
+### GLCM {#sec:org7171326}
 
 I did experiments with GLCM also. Since the GEE doesn't supports
 floating point arithmetic on GLCM based features, so I had to scale the
@@ -194,8 +194,8 @@ bands of each image by 1000 and then casted it into int32().
 -   Some of those included constrast, asm, correlation, variance and
     various others.
 
-1.  Classification [\[sec:org051ebc0\]]{#sec:org051ebc0
-    label="sec:org051ebc0"}
+1.  Classification [\[sec:org95cc050\]]{#sec:org95cc050
+    label="sec:org95cc050"}
 
     -   We performed k means classification on the glcm image containing
         various textural features.
@@ -214,15 +214,15 @@ bands of each image by 1000 and then casted it into int32().
         better.
 
     ![Here we have the grayscaled version of the
-    image.](./../TextureProsopis/grayclip.png){width=".9\\linewidth"}
+    image.](./TextureProsopis/grayclip.png){width=".9\\linewidth"}
 
     ![Here we have the contrast band extracted from the glcm
-    image.](./../TextureProsopis/glcmcontrast.png){width=".9\\linewidth"}
+    image.](./TextureProsopis/glcmcontrast.png){width=".9\\linewidth"}
 
     ![Here we have the classification ran on the
-    glcmkmeans](./../TextureProsopis/glcmkmeans.png){width=".9\\linewidth"}
+    glcmkmeans](./TextureProsopis/glcmkmeans.png){width=".9\\linewidth"}
 
-Classification {#sec:orgd1bcc0e}
+Classification {#sec:org40a23bf}
 --------------
 
 After analysis, we found that we can seperate P.Juliflora through the
@@ -230,7 +230,7 @@ means of spectral features only as we don't have very-high resolution
 data (\~cm resolution) of satellites. We went through the following
 steps
 
-Initial Attempt {#sec:org3842bcc}
+Initial Attempt {#sec:org8d3394e}
 ---------------
 
 We marked the polygons of P. Juliflora, Water, surrounding Horticulture
@@ -246,7 +246,7 @@ various algorithms are described below
   cart               default                  85.7
   ------------------ ------------------ ----------
 
-### Masking Water {#sec:orgf5ec1e8}
+### Masking Water {#sec:org275702d}
 
 We considered the \*NDWI\*(Normalized Difference Water Index). It is the
 normalized difference between NIR and SWIR wavelengths. When NDWI \< 0,
@@ -256,7 +256,7 @@ to mask out water from our area. The results were this
 ![We can see that water is masked out, and it's shown in blue color for
 visualization.](./pictures/maskwater.png){width=".9\\linewidth"}
 
-### Masking Land {#sec:org47f1291}
+### Masking Land {#sec:orgfeb8af3}
 
 Masking Land was difficult then masking water, as there are no specific
 indices (like NDWI, NDVI, EVI) to separate them. We introduced SAVI
